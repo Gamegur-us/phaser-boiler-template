@@ -11,9 +11,7 @@ var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game',false,false);
 game.state.add('Boot', GameCtrl.Boot);
 game.state.add('Preloader', GameCtrl.Preloader);
 game.state.add('MainMenu', GameCtrl.MainMenu);
-game.state.add('Prestage', GameCtrl.Prestage);
 game.state.add('Stage01', GameCtrl.Stage01);
-game.state.add('Stage02', GameCtrl.Stage02);
 
 	//        Now start the Boot state.
 game.state.start('Boot');

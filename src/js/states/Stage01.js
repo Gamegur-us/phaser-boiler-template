@@ -32,8 +32,6 @@ GameCtrl.Stage01.prototype = {
     create: function () {
     },
     update: function () {
-        
-
     },
     render: function(){
         // debug stuff
