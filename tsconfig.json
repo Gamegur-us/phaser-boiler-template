@@ -1,0 +1,30 @@
+{
+    "version": "1.5.0-beta",
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true
+    },
+    "filesGlob": [
+        "./**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "files": [
+        "./src/ts/index.ts",
+        "./src/ts/states/Boot.ts",
+        "./src/ts/states/index.ts",
+        "./src/ts/states/Preload.ts",
+        "./src/ts/states/Stage.ts",
+        "./typings/globals/phaser/index.d.ts",
+        "./typings/index.d.ts"
+    ],
+    "compileOnSave": false,
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}

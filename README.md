@@ -2,10 +2,10 @@ Main Idea
 ====
 
 
-A simple starter template to build html5 games using the Phaser framework.
+A starter template in typescript, transpiled to es6 then trasnpiled to es5 with
+babel, to build html5 games using the Phaser framework.
 
-All the code has been taken from;
-https://www.npmjs.org/package/generator-phaser-mobile
+With all the autoreload and es6 & beyond goodness.
 
 
 Instructions
@@ -13,13 +13,10 @@ Instructions
 
 1) fork this repo
 
-2) install grunt and all dependencies
+2) install gulp and all dependencies
 ```
-npm install grunt-cli
 npm install
-grunt
+gulp
 ```
 
 3) Enjoy!
-
-
