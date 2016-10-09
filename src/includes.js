@@ -1,2 +1,3 @@
 // load phaser js script
-require("script!../node_modules/phaser/build/phaser.js");
+require("./screenfull.js");
+require("script!../node_modules/phaser/build/phaser.min.js");

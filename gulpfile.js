@@ -1,18 +1,74 @@
-
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var buffer = require('vinyl-buffer');
 var csso = require('gulp-csso');
 var imagemin = require('gulp-imagemin');
+const pngquant = require('imagemin-pngquant');
 var merge = require('merge-stream');
+var clean = require('gulp-clean');
 
-var spritesmith = require('gulp.spritesmith');
-var texturepacker = require('spritesmith-texturepacker');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+
+const webpack = require('webpack');
+
+const spritesmith = require('gulp.spritesmith');
+const texturepacker = require('spritesmith-texturepacker');
+
+const paths = {
+  dist: 'build/',
+  assets: 'src/assets/',
+  sprites: 'src/assets/sprites/',
+  css: 'src/css/',
+  cssimages: 'src/css/**/*.png',
+}
+
+gulp.task('clean', () => {
+  return gulp.src(paths.dist)
+   .pipe(clean({force: true}))
+    .on('error', gutil.log);
+});
+
+gulp.task('copy', ['clean'], () => {
+  gulp.src(paths.assets + '**')
+  .pipe(gulp.dest(`${paths.dist}assets`))
+  .on('error', gutil.log);
+
+  gulp.src(paths.assets + '**')
+  .pipe(imagemin({
+    progressive: true,
+    svgoPlugins: [{
+      removeViewBox: false,
+    }],
+    use: [pngquant()],
+  }))
+  .pipe(gulp.dest(`${paths.dist}assets`))
+  .on('error', gutil.log);
+
+  gulp.src(paths.cssimages)
+  .pipe(imagemin({
+    progressive: true,
+    svgoPlugins: [{
+      removeViewBox: false,
+    }],
+    use: [pngquant()],
+  }))
+  .pipe(gulp.dest(`${paths.dist}css`))
+  .on('error', gutil.log);
+
+  gulp.src(paths.css + '**')
+  .pipe( postcss([ autoprefixer, cssnano ]) )
+  .pipe(gulp.dest(`${paths.dist}css`))
+  .on('error', gutil.log);
+});
+
 
 gulp.task('sprite', function () {
   // Generate our spritesheet
-  var spriteData = gulp.src('src/assets/animales/toro/*.png').pipe(spritesmith({
-    imgName: 'toro.png',
-    cssName: 'toro.json',
+  var spriteData = gulp.src(paths.sprites + '*.png').pipe(spritesmith({
+    imgName: 'sprites.png',
+    cssName: 'sprites.json',
     algorithm: 'binary-tree',
     cssTemplate: texturepacker
   }));
@@ -23,30 +79,28 @@ gulp.task('sprite', function () {
     // DEV: We must buffer our stream into a Buffer for `imagemin`
     .pipe(buffer())
     .pipe(imagemin())
-    .pipe(gulp.dest('src/assets/animales/toro/'));
+    .pipe(gulp.dest(assets));
 
   // Pipe CSS stream through CSS optimizer and onto disk
   var cssStream = spriteData.css
-    .pipe(gulp.dest('src/assets/animales/toro/'));
+    .pipe(gulp.dest(assets));
 
   // Return a merged stream to handle both `end` events
   return merge(imgStream, cssStream);
 });
 
-/*var gulp = require('gulp');
-var spritesmith = require('gulp.spritesmith');
-var imagemin = require('gulp-imagemin');
-var texturepacker = require('spritesmith-texturepacker');
-
-gulp.task('sprites', function() {
-    var spriteData = gulp.src('img/*.png')
-        .pipe(spritesmith({
-            imgName: 'sprites.png',
-            cssName: 'sprites.json',
-            algorithm: 'binary-tree',
-            cssTemplate: texturepacker
+gulp.task('webpack', (callback) => {
+  const webpackConfigProd = require('./webpack.config.prod.js');
+  // run webpack
+  webpack(webpackConfigProd, (err, stats) => {
+    if (err) {
+      throw new gutil.PluginError('webpack', err);
+    }
+    gutil.log('[webpack]', stats.toString({
+      // output options
     }));
-    spriteData.img.pipe(imagemin()).pipe(gulp.dest('build/'));
-    spriteData.css.pipe(gulp.dest('build/'));
+    callback();
+  });
 });
-*/
+
+gulp.task('default', ['clean', 'copy', 'webpack']);

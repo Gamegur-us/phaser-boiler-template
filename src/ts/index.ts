@@ -1,5 +1,5 @@
 import { Boot, Preload, Stage } from './states/index.ts';
-
+import 'screenfull';
 const gameWidth = 480;
 const gameHeight = 720;
 
@@ -38,7 +38,7 @@ window.onload = () => {
 
     window.scrollTo(0,1);*/
     function goFull() {
-      (window as any).screenfull.request(document.body);
+      screenfull.request(document.body);
     }
 
     document.addEventListener('touchstart', goFull, false);
