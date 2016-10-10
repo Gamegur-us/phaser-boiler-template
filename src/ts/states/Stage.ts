@@ -1,9 +1,4 @@
 export class Stage extends Phaser.State {
-  public preload() {
-    this.load.spritesheet('phaser', 'assets/images/phaser.png', 70, 90);
-    this.load.image('starfield', 'assets/images/starfield.jpg');
-  }
-
   public create() {
     this.add.tileSprite(0, 0, this.world.width, this.world.height, 'starfield');
 
