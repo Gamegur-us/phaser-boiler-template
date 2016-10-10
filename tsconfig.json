@@ -21,7 +21,6 @@
         "./src/ts/states/Preload.ts",
         "./src/ts/states/Stage.ts",
         "./typings/globals/phaser/index.d.ts",
-        "./typings/globals/screenfull/index.d.ts",
         "./typings/index.d.ts"
     ],
     "compileOnSave": false,

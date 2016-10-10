@@ -1,5 +1,5 @@
 import { Boot, Preload, Stage } from './states/index.ts';
-import 'screenfull';
+
 const gameWidth = 480;
 const gameHeight = 720;
 
@@ -38,7 +38,7 @@ window.onload = () => {
 
     window.scrollTo(0,1);*/
     function goFull() {
-      screenfull.request(document.body);
+      (window as any).screenfull.request(document.body);
     }
 
     document.addEventListener('touchstart', goFull, false);
@@ -58,7 +58,10 @@ window.onload = () => {
       w = Math.min(window.innerWidth, gameWidth);
       h = w / gameAspectRatio;
     }
-
+    setTimeout(() => {
+      game.width = Math.round(w);
+      game.height = Math.round(h);
+    }, 100);
     game.width = Math.round(w);
     game.height = Math.round(h);
     try {
