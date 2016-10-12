@@ -30,12 +30,6 @@ const gameDiv = document.getElementById('game');
 window.onload = () => {
   const game = new Game();
   const resize = () => {
-    // window.innerHeight
-    // window.innerWidth
-/*    gameDiv.scrollIntoView(false);
-    gameDiv.requestFullscreen(); // standard
-
-    window.scrollTo(0,1);*/
     function goFull() {
       (window as any).screenfull.request(document.body);
     }
@@ -52,12 +46,12 @@ window.onload = () => {
 
     if (currentAspect > gameAspectRatio) {
       h = Math.min(window.innerHeight, gameHeight);
-      w = gameAspectRatio * h;
+      w = Math.round(gameAspectRatio * h);
     } else {
       w = Math.min(window.innerWidth, gameWidth);
-      h = w / gameAspectRatio;
+      h = Math.round(w / gameAspectRatio);
     }
-    game.scale.setGameSize(Math.round(w), Math.round(h));
+    game.scale.setMinMax(w, h, w, h);
   };
 
   window.onresize = resize;
