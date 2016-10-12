@@ -32,7 +32,6 @@ window.onload = () => {
   const resize = () => {
     // window.innerHeight
     // window.innerWidth
-    gameDiv.style.height = window.innerHeight + 'px';
 /*    gameDiv.scrollIntoView(false);
     gameDiv.requestFullscreen(); // standard
 
