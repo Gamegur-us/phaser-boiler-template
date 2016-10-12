@@ -5,6 +5,9 @@ export class Boot extends Phaser.State {
     // load images for preloader
     this.load.image('preloaderBar', 'assets/images/preloader_bar.png');
     this.load.image('logo', 'assets/images/logo.png');
+
+    // trigger resize event
+    window.dispatchEvent(new Event('resize'));
   }
 
   public create() {

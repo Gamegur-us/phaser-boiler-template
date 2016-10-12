@@ -57,19 +57,8 @@ window.onload = () => {
       w = Math.min(window.innerWidth, gameWidth);
       h = w / gameAspectRatio;
     }
-    setTimeout(() => {
-      game.width = Math.round(w);
-      game.height = Math.round(h);
-    }, 100);
-    game.width = Math.round(w);
-    game.height = Math.round(h);
-    try {
-      game.scale.refresh();
-    } catch (e) {
-      // empty
-    }
+    game.scale.setGameSize(Math.round(w), Math.round(h));
   };
 
   window.onresize = resize;
-  resize();
 };
