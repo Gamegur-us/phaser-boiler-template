@@ -1,4 +1,4 @@
-import { Boot, Preload, Stage } from './states/index.ts';
+import { Boot, Preload, Stage } from './states/index';
 
 const gameWidth = 480;
 const gameHeight = 720;

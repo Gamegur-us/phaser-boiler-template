@@ -21,7 +21,11 @@ module.exports = {
   },
   module: {
     loaders: [{
-      test: /\.tsx?$/, loader: 'babel-loader!ts-loader'
+      test: /\.tsx?$/,
+      loaders: [
+        'babel-loader',
+        'ts-loader',
+      ]
     },{
       test: /\.html$/,
       loader: 'html',
@@ -40,19 +44,20 @@ module.exports = {
     }, {
       test: /\.js$/,
       exclude: /(node_modules|vendor|src\/lib)/,
-      loader: 'babel-loader',
+      loaders: ['babel-loader'],
     },
   ],
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.scss', '.html', '.ts'],
-    root: [
+    extensions: ['.js', '.json', '.scss', '.html', '.ts'],
+    /*root: [
       libPath,
       path.join(__dirname, 'node_modules'),
-    ],
-    moduleDirectories: [
-      'node_modules',
-    ],
+    ],*/
+    modules: [
+      libPath,
+      'node_modules'
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({

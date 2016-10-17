@@ -1,3 +1,3 @@
-export { Boot } from './Boot.ts';
-export { Preload } from './Preload.ts';
-export { Stage } from './Stage.ts';
+export { Boot } from './Boot';
+export { Preload } from './Preload';
+export { Stage } from './Stage';

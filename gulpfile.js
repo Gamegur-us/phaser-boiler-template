@@ -12,6 +12,7 @@ const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
 const webpack = require('webpack');
+const webpackDevServer = require('webpack-dev-server');
 
 const spritesmith = require('gulp.spritesmith');
 const texturepacker = require('spritesmith-texturepacker');
@@ -102,5 +103,21 @@ gulp.task('webpack', (callback) => {
     callback();
   });
 });
+
+gulp.task('dev', (cb) =>{
+  const webpackConfig = require('./webpack.config.js');
+  var compiler = webpack(webpackConfig);
+
+  new webpackDevServer(compiler, {
+    contentBase: './src/',
+    host: '0.0.0.0'
+  }).listen(8080, "localhost", function(err) {
+    if(err) throw new gutil.PluginError("webpack-dev-server", err);
+    // Server listening
+    gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
+    // keep the server alive or continue?
+    cb();
+  });
+})
 
 gulp.task('default', ['clean', 'copy', 'webpack']);
